@@ -1,22 +1,26 @@
-import { Component } from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {Component} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, NonNullableFormBuilder, Validators} from "@angular/forms";
 import {createPasswordStrengthValidator} from "../../shared/validators/password.validator";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styles: [
-  ]
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styles: []
 })
 export class LoginComponent {
 
-  form = new FormGroup({
-    email: new FormControl('', {
-      validators: [Validators.required, Validators.email]
-    }),
-    password: new FormControl('', {
-      validators: [Validators.required, createPasswordStrengthValidator()]
+    form = this.fb.group({
+        email: ['', {
+            validators: [Validators.required, Validators.email]
+        }],
+        password: ['', [
+            Validators.required,
+            Validators.minLength(8),
+            createPasswordStrengthValidator()
+        ]]
     })
-  })
+
+    constructor(private fb: FormBuilder) {
+    }
 
 }
