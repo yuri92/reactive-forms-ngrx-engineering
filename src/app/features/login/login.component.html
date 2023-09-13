@@ -1,10 +1,20 @@
 <h1>Login page</h1>
 <div class="row">
     <div class="col-4 mx-auto">
-        <form class="row g-3">
+
+        <pre>{{form.value | json}}</pre>
+
+        <form [formGroup]="form" class="row g-3">
             <div class="col-12">
-                <label for="email" class="form-label">Username</label>
-                <input type="email" class="form-control" id="email">
+                <label for="email" class="form-label">Email</label>
+
+                <input
+                    [ngClass]="{
+                        'is-valid': form.controls.email.touched && form.controls.email.valid,
+                        'is-invalid': form.controls.email.touched && form.controls.email.invalid
+                    }"
+                    formControlName="email" type="email" class="form-control" id="email">
+
                 <div class="valid-feedback">
                     Username valido
                 </div>
@@ -15,7 +25,12 @@
             <div class="col-12">
                 <label for="password" class="form-label">Password</label>
                 <input
-                        type="password" class="form-control" id="password">
+                    [ngClass]="{
+                        'is-valid': form.controls.password.touched && form.controls.password.valid,
+                        'is-invalid': form.controls.password.touched && form.controls.password.invalid
+                    }"
+                    formControlName="password"
+                    type="password" class="form-control" id="password">
                 <div class="valid-feedback">
                     Password valida
                 </div>
@@ -24,7 +39,10 @@
                 </div>
             </div>
             <div class="col-12">
-                <button class="btn btn-primary" type="submit">Submit form</button>
+                <button
+                        [disabled]="form.invalid"
+                        class="btn btn-primary" type="submit">Submit form
+                </button>
             </div>
         </form>
 
