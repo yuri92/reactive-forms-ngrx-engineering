@@ -26,8 +26,9 @@ export class Step1Component {
     constructor(
         private http: HttpClient
     ) {
-
         this.form.valueChanges.subscribe((form) => {
+            sessionStorage.setItem('holiday-form', JSON.stringify(form))
+
             const {nome, cognome} = form;
 
             const codiceFiscaleControl = this.form.controls.codiceFiscale;
@@ -39,6 +40,12 @@ export class Step1Component {
                 codiceFiscaleControl.setValue(null, {emitEvent: false});
             }
         })
+
+        const sessionStorageForm = sessionStorage.getItem('holiday-form');
+        if(sessionStorageForm){
+            // this.form.value(JSON.parse(sessionStorageForm));
+            this.form.patchValue(JSON.parse(sessionStorageForm));
+        }
 
     }
 
