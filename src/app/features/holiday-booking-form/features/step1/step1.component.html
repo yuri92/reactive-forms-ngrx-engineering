@@ -41,10 +41,13 @@
 
     <div class="col-6">
         <label for="comuneNascita" class="form-label">Comune di nascita</label>
-        <select class="form-select" formControlName="comuneNascita" id="comuneNascita">
-            <option
-                    *ngFor="let comune of comuni$ | async">{{comune.nome}} ({{comune.provincia.nome}})</option>
-        </select>
+        <ng-select
+            id="comuneNascita"
+            formControlName="comuneNascita"
+            [items]="comuni$ | async"
+            [typeahead]="typeAheadComuni$"
+            bindLabel="nome"
+            bindValue="codice"></ng-select>
     </div>
 
     <div class="col-12">
@@ -62,7 +65,7 @@
 
         <div *ngIf="uploadProgress > 0" class="progress" role="progressbar">
             <div [ngStyle]="{'width' : uploadProgress + '%'}"
-                class="progress-bar"></div>
+                 class="progress-bar"></div>
         </div>
     </div>
 

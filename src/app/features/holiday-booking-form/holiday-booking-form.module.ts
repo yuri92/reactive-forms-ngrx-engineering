@@ -5,6 +5,7 @@ import { HolidayBookingFormRoutingModule } from './holiday-booking-form-routing.
 import { HolidayBookingFormComponent } from './holiday-booking-form.component';
 import { Step1Component } from './features/step1/step1.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import {NgSelectModule} from "@ng-select/ng-select";
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     imports: [
         CommonModule,
         HolidayBookingFormRoutingModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        NgSelectModule
     ]
 })
 export class HolidayBookingFormModule { }

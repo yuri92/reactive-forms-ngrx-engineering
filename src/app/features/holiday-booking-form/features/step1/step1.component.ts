@@ -2,7 +2,7 @@ import {Component, inject} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {CFInitialsValidator} from "./step1.utils";
 import {HttpClient, HttpEventType} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {debounceTime, filter, Observable, Subject} from "rxjs";
 import {IComune} from "./interfaces/comune.interface";
 
 @Component({
@@ -15,7 +15,8 @@ export class Step1Component {
     uploadProgress = 0;
     uploadSuccess = false;
 
-    comuni$ : Observable<IComune[]>
+    comuni$ : Observable<IComune[]>;
+    typeAheadComuni$ = new Subject()
 
     form = inject(FormBuilder).group({
         nome: ['', [Validators.required]],
@@ -31,7 +32,12 @@ export class Step1Component {
     constructor(
         private http: HttpClient
     ) {
-        this.comuni$ = this.http.get<IComune[]>('/api/comuni');
+        this.typeAheadComuni$.pipe(
+            filter((e: string) => !!e && e.length >= 3),
+            debounceTime(500)
+        ).subscribe(value => {
+            this.comuni$ = this.getComuni(value as string)
+        })
 
         this.form.valueChanges.subscribe((form) => {
             sessionStorage.setItem('holiday-form', JSON.stringify(form))
@@ -83,6 +89,12 @@ export class Step1Component {
             }
         })
 
+    }
+
+    private getComuni(search: string): Observable<IComune[]> {
+        return this.http.get<IComune[]>('/api/comuni', {
+            params : {search}
+        })
     }
 
 

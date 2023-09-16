@@ -45,14 +45,18 @@ app.post('/api/upload-thumbnail', (req, res) => {
 
 let cachedComuni;
 app.get('/api/comuni', (req, res) => {
-    //{"codice":"028001","nome":"Abano Terme","nomeStraniero":null,"codiceCatastale":"A001","cap":"35031","prefisso":"049","provincia":{"nome":"Padova","regione":"Veneto"},"email":"protocollo@abanoterme.net","pec":"abanoterme.pd@cert.ip-veneto.net","telefono":"+39 049 8245111","fax":"+39 049 8600499","coordinate":{"lat":45.3619,"lng":11.7924}}
-    if (cachedComuni) {
-        res.json(cachedComuni);
+    const {search} = req.query;
+
+    console.log(search)
+
+    if (search.length <= 3) {
+        res.json([]);
     } else {
-        axios.get('https://axqvoqvbfjpaamphztgd.functions.supabase.co/comuni').then(comuniResponse => {
-            cachedComuni = comuniResponse.data;
-            res.json(cachedComuni)
-        })
+        let comuni = JSON.parse(fs.readFileSync('./json/comuni.json').toString());
+        comuni = comuni.filter(e => e.nome.toLowerCase().startsWith(search))
+
+        res.json(comuni.slice(0, 10))
+
     }
 
 })
