@@ -1,15 +1,20 @@
-<h2>Step 2</h2>
+<h2>Step 1</h2>
 
-<form [formGroup]="form" class="row g-3">
-    <pre>{{form.errors | json}}</pre>
-
+<form
+    [formGroup]="form"
+    (ngSubmit)="submit()"
+    class="row g-3">
     <div class="col-6">
         <label for="nome" class="form-label">Nome</label>
-        <input formControlName="nome" type="text" class="form-control" id="nome">
+        <input
+            [class.is-invalid]="form.controls.nome.touched && form.controls.nome.invalid"
+            formControlName="nome" type="text" class="form-control" id="nome">
     </div>
     <div class="col-6">
         <label for="cognome" class="form-label">Cognome</label>
-        <input formControlName="cognome" type="text" class="form-control" id="cognome">
+        <input
+            [class.is-invalid]="form.controls.cognome.touched && form.controls.cognome.invalid"
+            formControlName="cognome" type="text" class="form-control" id="cognome">
     </div>
     <div class="col-6">
 
@@ -28,6 +33,20 @@
             <ng-container *ngIf="form.errors?.cfShouldStartWith; let initials">
                 Il codice fiscale deve iniziare per "{{initials}}"
             </ng-container>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="form-check">
+            <input
+                [class.is-invalid]="form.controls.termsAndConditions.touched && form.controls.termsAndConditions.invalid"
+                formControlName="termsAndConditions" class="form-check-input" type="checkbox" id="termsAndConditions">
+            <label class="form-check-label" for="termsAndConditions">
+                Accetto i termini e le condizioni
+            </label>
+            <div class="invalid-feedback">
+                Devi accettare i termini e le condizioni
+            </div>
         </div>
     </div>
 

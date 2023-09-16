@@ -13,7 +13,8 @@ export class Step1Component {
     form = inject(FormBuilder).group({
         nome: ['', [Validators.required]],
         cognome: ['', Validators.required],
-        codiceFiscale: [{value: '', disabled: true}, [Validators.required, Validators.pattern(/[A-MZ][1-9]\d{2}|[A-M]0(?:[1-9]\d|0[1-9])/)]]
+        codiceFiscale: [{value: '', disabled: true}, [Validators.required, Validators.pattern(/[A-MZ][1-9]\d{2}|[A-M]0(?:[1-9]\d|0[1-9])/)]],
+        termsAndConditions: [false, [Validators.requiredTrue]]
     }, {
         validators: CFInitialsValidator()
     })
@@ -33,6 +34,15 @@ export class Step1Component {
             }
         })
 
+    }
+
+    submit(): void {
+        if(this.form.invalid){
+            this.form.markAllAsTouched();
+            return;
+        }
+
+        console.log(this.form.value)
     }
 
 
