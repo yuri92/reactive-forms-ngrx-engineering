@@ -11,7 +11,7 @@ import {HttpClient} from "@angular/common/http";
 })
 export class LoginComponent {
 
-    form = this.fb.group({
+    form = inject(FormBuilder).group({
         email: ['', {
             validators: [Validators.required, Validators.email],
             asyncValidators: [emailExistsValidator(inject(HttpClient))],
@@ -23,8 +23,5 @@ export class LoginComponent {
             createPasswordStrengthValidator()
         ]]
     })
-
-    constructor(private fb: FormBuilder) {
-    }
 
 }
