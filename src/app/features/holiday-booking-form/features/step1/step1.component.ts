@@ -16,7 +16,7 @@ export class Step1Component {
     uploadSuccess = false;
 
     comuni$ : Observable<IComune[]>;
-    typeAheadComuni$ = new Subject()
+    typeAheadComuni$ = new Subject<string>()
 
     form = inject(FormBuilder).group({
         nome: ['', [Validators.required]],
@@ -33,10 +33,10 @@ export class Step1Component {
         private http: HttpClient
     ) {
         this.typeAheadComuni$.pipe(
-            filter((e: string) => !!e && e.length >= 3),
+            filter(e => !!e && e.length >= 3),
             debounceTime(500)
         ).subscribe(value => {
-            this.comuni$ = this.getComuni(value as string)
+            this.comuni$ = this.getComuni(value)
         })
 
         this.form.valueChanges.subscribe((form) => {
