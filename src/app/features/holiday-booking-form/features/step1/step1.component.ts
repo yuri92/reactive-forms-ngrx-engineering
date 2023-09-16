@@ -2,6 +2,8 @@ import {Component, inject} from '@angular/core';
 import {FormBuilder, Validators} from "@angular/forms";
 import {CFInitialsValidator} from "./step1.utils";
 import {HttpClient, HttpEventType} from "@angular/common/http";
+import {Observable} from "rxjs";
+import {IComune} from "./interfaces/comune.interface";
 
 @Component({
     selector: 'app-step1',
@@ -13,12 +15,15 @@ export class Step1Component {
     uploadProgress = 0;
     uploadSuccess = false;
 
+    comuni$ : Observable<IComune[]>
+
     form = inject(FormBuilder).group({
         nome: ['', [Validators.required]],
         cognome: ['', Validators.required],
         codiceFiscale: [{value: '', disabled: true}, [Validators.required, Validators.pattern(/[A-MZ][1-9]\d{2}|[A-M]0(?:[1-9]\d|0[1-9])/)]],
         termsAndConditions: [false, [Validators.requiredTrue]],
-        documento: ['', [Validators.required]]
+        documento: ['', [Validators.required]],
+        comuneNascita: ['', [Validators.required]]
     }, {
         validators: CFInitialsValidator()
     })
@@ -26,6 +31,8 @@ export class Step1Component {
     constructor(
         private http: HttpClient
     ) {
+        this.comuni$ = this.http.get<IComune[]>('/api/comuni');
+
         this.form.valueChanges.subscribe((form) => {
             sessionStorage.setItem('holiday-form', JSON.stringify(form))
 

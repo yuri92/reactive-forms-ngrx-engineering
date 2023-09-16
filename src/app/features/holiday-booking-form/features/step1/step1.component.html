@@ -39,6 +39,14 @@
         </div>
     </div>
 
+    <div class="col-6">
+        <label for="comuneNascita" class="form-label">Comune di nascita</label>
+        <select class="form-select" formControlName="comuneNascita" id="comuneNascita">
+            <option
+                    *ngFor="let comune of comuni$ | async">{{comune.nome}} ({{comune.provincia.nome}})</option>
+        </select>
+    </div>
+
     <div class="col-12">
         <div class="input-group">
             <input
