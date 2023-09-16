@@ -1,20 +1,23 @@
 <h2>Step 1</h2>
 
 <form
-    [formGroup]="form"
-    (ngSubmit)="submit()"
-    class="row g-3">
+        [formGroup]="form"
+        (ngSubmit)="submit()"
+        class="row g-3">
+
+    <pre>{{form.value | json}}</pre>
+
     <div class="col-6">
         <label for="nome" class="form-label">Nome</label>
         <input
-            [class.is-invalid]="form.controls.nome.touched && form.controls.nome.invalid"
-            formControlName="nome" type="text" class="form-control" id="nome">
+                [class.is-invalid]="form.controls.nome.touched && form.controls.nome.invalid"
+                formControlName="nome" type="text" class="form-control" id="nome">
     </div>
     <div class="col-6">
         <label for="cognome" class="form-label">Cognome</label>
         <input
-            [class.is-invalid]="form.controls.cognome.touched && form.controls.cognome.invalid"
-            formControlName="cognome" type="text" class="form-control" id="cognome">
+                [class.is-invalid]="form.controls.cognome.touched && form.controls.cognome.invalid"
+                formControlName="cognome" type="text" class="form-control" id="cognome">
     </div>
     <div class="col-6">
 
@@ -24,7 +27,7 @@
                 formControlName="codiceFiscale"
                 type="text"
                 class="form-control"
-                id="codice-fiscale" >
+                id="codice-fiscale">
 
         <div class="invalid-feedback">
             <ng-container *ngIf="form.controls.codiceFiscale.errors">
@@ -37,10 +40,30 @@
     </div>
 
     <div class="col-12">
+        <div class="input-group">
+            <input
+                    (change)="onFileSelected($event)"
+                    formControlName="documento"
+                    type="file"
+                    [class.is-valid]="form.controls.documento.touched && uploadSuccess"
+                    class="form-control">
+            <div class="valid-feedback">
+                File caricato correttamente!
+            </div>
+        </div>
+
+        <div *ngIf="uploadProgress > 0" class="progress" role="progressbar">
+            <div [ngStyle]="{'width' : uploadProgress + '%'}"
+                class="progress-bar"></div>
+        </div>
+    </div>
+
+    <div class="col-12">
         <div class="form-check">
             <input
-                [class.is-invalid]="form.controls.termsAndConditions.touched && form.controls.termsAndConditions.invalid"
-                formControlName="termsAndConditions" class="form-check-input" type="checkbox" id="termsAndConditions">
+                    [class.is-invalid]="form.controls.termsAndConditions.touched && form.controls.termsAndConditions.invalid"
+                    formControlName="termsAndConditions" class="form-check-input" type="checkbox"
+                    id="termsAndConditions">
             <label class="form-check-label" for="termsAndConditions">
                 Accetto i termini e le condizioni
             </label>
@@ -49,6 +72,7 @@
             </div>
         </div>
     </div>
+
 
     <div class="col-12">
         <button class="btn btn-primary" type="submit">Submit form</button>

@@ -1,4 +1,5 @@
 const cors = require('cors')
+const fileUpload = require('express-fileupload')
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
@@ -8,6 +9,7 @@ const axios = require('axios');
 const {v4: uuid} = require('uuid');
 
 app.use(cors())
+app.use(fileUpload())
 // parse application/json
 app.use(bodyParser.json({limit: '64mb'}));
 // parse application/x-www-form-urlencoded
@@ -29,12 +31,16 @@ app.use((req, res, next) => {
 app.post('/api/email-checker', (req, res) => {
     const {email} = req.body;
 
-    if(EMAILS.includes(email)){
+    if (EMAILS.includes(email)) {
         res.status(400);
-        res.json({errorMessage : 'Username already exists'});
+        res.json({errorMessage: 'Username already exists'});
     } else {
         res.json({status: 'ok'})
     }
+})
+
+app.post('/api/upload-thumbnail', (req, res) => {
+    res.json({status: 'ok'})
 })
 
 app.listen(3001, () => console.log('Server partito sulla 3001'));
