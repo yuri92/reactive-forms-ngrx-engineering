@@ -1,6 +1,8 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, NonNullableFormBuilder, Validators} from "@angular/forms";
 import {createPasswordStrengthValidator} from "../../shared/validators/password.validator";
+import {emailExistsValidator} from "../../shared/validators/email-exists.async-validator";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
     selector: 'app-login',
@@ -11,7 +13,9 @@ export class LoginComponent {
 
     form = this.fb.group({
         email: ['', {
-            validators: [Validators.required, Validators.email]
+            validators: [Validators.required, Validators.email],
+            asyncValidators: [emailExistsValidator(inject(HttpClient))],
+            updateOn: 'blur'
         }],
         password: ['', [
             Validators.required,
