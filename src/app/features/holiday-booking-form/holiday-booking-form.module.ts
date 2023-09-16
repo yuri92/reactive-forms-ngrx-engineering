@@ -3,15 +3,19 @@ import { CommonModule } from '@angular/common';
 
 import { HolidayBookingFormRoutingModule } from './holiday-booking-form-routing.module';
 import { HolidayBookingFormComponent } from './holiday-booking-form.component';
+import { Step1Component } from './features/step1/step1.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
   declarations: [
-    HolidayBookingFormComponent
+    HolidayBookingFormComponent,
+    Step1Component
   ],
-  imports: [
-    CommonModule,
-    HolidayBookingFormRoutingModule
-  ]
+    imports: [
+        CommonModule,
+        HolidayBookingFormRoutingModule,
+        ReactiveFormsModule
+    ]
 })
 export class HolidayBookingFormModule { }

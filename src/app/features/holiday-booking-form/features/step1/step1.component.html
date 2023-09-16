@@ -1,0 +1,37 @@
+<h2>Step 2</h2>
+
+<form [formGroup]="form" class="row g-3">
+    <pre>{{form.errors | json}}</pre>
+
+    <div class="col-6">
+        <label for="nome" class="form-label">Nome</label>
+        <input formControlName="nome" type="text" class="form-control" id="nome">
+    </div>
+    <div class="col-6">
+        <label for="cognome" class="form-label">Cognome</label>
+        <input formControlName="cognome" type="text" class="form-control" id="cognome">
+    </div>
+    <div class="col-6">
+
+        <label for="codice-fiscale" class="form-label">Codice fiscale</label>
+        <input
+                [class.is-invalid]="form.controls.codiceFiscale.touched && (form.controls.codiceFiscale.invalid || form.errors)"
+                formControlName="codiceFiscale"
+                type="text"
+                class="form-control"
+                id="codice-fiscale" >
+
+        <div class="invalid-feedback">
+            <ng-container *ngIf="form.controls.codiceFiscale.errors">
+                Campo non valido
+            </ng-container>
+            <ng-container *ngIf="form.errors?.cfShouldStartWith; let initials">
+                Il codice fiscale deve iniziare per "{{initials}}"
+            </ng-container>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <button class="btn btn-primary" type="submit">Submit form</button>
+    </div>
+</form>
