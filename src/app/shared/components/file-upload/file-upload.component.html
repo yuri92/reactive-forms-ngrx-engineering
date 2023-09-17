@@ -1,0 +1,33 @@
+
+<input
+        class="d-none"
+        (change)="onFileSelected($event)"
+        #fileUpload
+        type="file">
+
+<div class="col-12">
+    <div class="input-group" (click)="onClick(fileUpload)">
+
+        <span  class="input-group-text">Carica il file</span>
+
+
+        <input
+                [value]="value.fileName"
+                type="text"
+                class="form-control"
+                [ngClass]="{
+                    'is-valid': isTouched && uploadSuccess,
+                    'is-invalid': isTouched && !uploadSuccess
+                }"
+                readonly>
+
+        <div class="valid-feedback">
+            File caricato correttamente!
+        </div>
+    </div>
+
+    <div *ngIf="uploadProgress > 0" class="progress" role="progressbar">
+        <div [ngStyle]="{'width' : uploadProgress + '%'}"
+             class="progress-bar"></div>
+    </div>
+</div>

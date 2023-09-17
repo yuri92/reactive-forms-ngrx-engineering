@@ -12,13 +12,11 @@ import {IComune} from "./interfaces/comune.interface";
 })
 export class Step1Component {
 
-    uploadProgress = 0;
-    uploadSuccess = false;
-
     comuni$ : Observable<IComune[]>;
     typeAheadComuni$ = new Subject<string>()
 
     form = inject(FormBuilder).group({
+        test: ['ciao'],
         nome: ['', [Validators.required]],
         cognome: ['', Validators.required],
         codiceFiscale: [{value: '', disabled: true}, [Validators.required, Validators.pattern(/[A-MZ][1-9]\d{2}|[A-M]0(?:[1-9]\d|0[1-9])/)]],
@@ -69,26 +67,6 @@ export class Step1Component {
         }
 
         console.log(this.form.value)
-    }
-
-    onFileSelected(event): void {
-        const file: File = event.target.files[0];
-        const formData = new FormData();
-        formData.append('thumbnail', file);
-
-        this.http.post('/api/upload-thumbnail', formData, {
-            reportProgress: true,
-            observe: "events"
-        }).subscribe(event => {
-            if(event.type === HttpEventType.UploadProgress) {
-                this.uploadProgress = Math.round(100 * (event.loaded / event.total));
-
-            } else if(event.type === HttpEventType.Response) {
-                this.uploadSuccess = true;
-                this.uploadProgress = 0;
-            }
-        })
-
     }
 
     private getComuni(search: string): Observable<IComune[]> {
