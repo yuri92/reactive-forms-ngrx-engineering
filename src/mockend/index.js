@@ -40,6 +40,13 @@ app.post('/api/email-checker', (req, res) => {
 })
 
 app.post('/api/upload-thumbnail', (req, res) => {
+    const simulaErrore = false;
+
+    if(simulaErrore){
+        res.status(500).json({})
+        return;
+    }
+
     res.json({status: 'ok'})
 })
 

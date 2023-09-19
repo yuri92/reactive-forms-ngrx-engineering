@@ -52,11 +52,11 @@ export class Step1Component {
             }
         })
 
-        const sessionStorageForm = sessionStorage.getItem('holiday-form');
-        if(sessionStorageForm){
-            // this.form.value(JSON.parse(sessionStorageForm));
-            this.form.patchValue(JSON.parse(sessionStorageForm));
-        }
+        // const sessionStorageForm = sessionStorage.getItem('holiday-form');
+        // if(sessionStorageForm){
+        //     // this.form.value(JSON.parse(sessionStorageForm));
+        //     this.form.patchValue(JSON.parse(sessionStorageForm));
+        // }
 
     }
 
