@@ -39,15 +39,11 @@
         </div>
     </div>
 
-    <div class="col-6">
-        <label for="comuneNascita" class="form-label">Comune di nascita</label>
-        <ng-select
-            id="comuneNascita"
-            formControlName="comuneNascita"
-            [items]="comuni$ | async"
-            [typeahead]="typeAheadComuni$"
-            bindLabel="nome"
-            bindValue="codice"></ng-select>
+    <div class="col-12">
+        <hr>
+<!--        <pre>{{form.controls.indirizzoResidenza.errors | json}}</pre>-->
+        <form-address formControlName="indirizzoResidenza"></form-address>
+        <hr>
     </div>
 
     <div class="col-6">

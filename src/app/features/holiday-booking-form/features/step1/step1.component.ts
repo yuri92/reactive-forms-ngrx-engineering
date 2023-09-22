@@ -12,30 +12,22 @@ import {IComune} from "./interfaces/comune.interface";
 })
 export class Step1Component {
 
-    comuni$ : Observable<IComune[]>;
-    typeAheadComuni$ = new Subject<string>()
 
     form = inject(FormBuilder).group({
-        test: ['ciao'],
         nome: ['', [Validators.required]],
         cognome: ['', Validators.required],
-        codiceFiscale: [{value: '', disabled: true}, [Validators.required, Validators.pattern(/[A-MZ][1-9]\d{2}|[A-M]0(?:[1-9]\d|0[1-9])/)]],
+        codiceFiscale: [{
+            value: '',
+            disabled: true
+        }, [Validators.required, Validators.pattern(/[A-MZ][1-9]\d{2}|[A-M]0(?:[1-9]\d|0[1-9])/)]],
         termsAndConditions: [false, [Validators.requiredTrue]],
         documento: ['', [Validators.required]],
-        comuneNascita: ['', [Validators.required]]
+        indirizzoResidenza: [null]
     }, {
         validators: CFInitialsValidator()
     })
 
-    constructor(
-        private http: HttpClient
-    ) {
-        this.typeAheadComuni$.pipe(
-            filter(e => !!e && e.length >= 3),
-            debounceTime(500)
-        ).subscribe(value => {
-            this.comuni$ = this.getComuni(value)
-        })
+    constructor() {
 
         this.form.valueChanges.subscribe((form) => {
             sessionStorage.setItem('holiday-form', JSON.stringify(form))
@@ -61,18 +53,12 @@ export class Step1Component {
     }
 
     submit(): void {
-        if(this.form.invalid){
+        if (this.form.invalid) {
             this.form.markAllAsTouched();
             return;
         }
 
         console.log(this.form.value)
-    }
-
-    private getComuni(search: string): Observable<IComune[]> {
-        return this.http.get<IComune[]>('/api/comuni', {
-            params : {search}
-        })
     }
 
 

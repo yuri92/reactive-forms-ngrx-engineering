@@ -57,6 +57,8 @@ export class FileUploadComponent implements ControlValueAccessor, Validator {
 
     onFileSelected(event): void {
         const file: File = event.target.files[0];
+        console.log('uploaded file', file)
+
         const formData = new FormData();
         const fileId = uuid();
 
@@ -105,9 +107,9 @@ export class FileUploadComponent implements ControlValueAccessor, Validator {
         this.onTouched = fn;
     }
 
-    registerOnValidatorChange(fn: () => void) {
-        this.onValidatorChange = fn;
-    }
+    // registerOnValidatorChange(fn: () => void) {
+    //     this.onValidatorChange = fn;
+    // }
 
     setDisabledState(isDisabled: boolean): void {
         this.isDisabled = isDisabled
@@ -118,6 +120,7 @@ export class FileUploadComponent implements ControlValueAccessor, Validator {
     }
 
     validate(control: AbstractControl): ValidationErrors | null {
+
         if (this.fileUploadSuccess) {
             return null
         }

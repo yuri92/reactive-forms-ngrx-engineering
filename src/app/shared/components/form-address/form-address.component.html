@@ -1,0 +1,58 @@
+<form [formGroup]="form">
+
+    <div class="row">
+        <div class="col-12">
+            <label>Nazione di nascita</label>
+            <select
+                    [ngClass]="{
+                        'is-valid': form.touched && form.controls.nazione.valid,
+                        'is-invalid': form.touched && form.controls.nazione.invalid
+                    }"
+                    class="form-select"
+                    (blur)="onTouched()" formControlName="nazione">
+                <option value="1">Italia</option>
+                <option value="2">Estero</option>
+            </select>
+            <div class="invalid-feedback">Example invalid select feedback</div>
+        </div>
+
+        <div class="col-6">
+            <div class="form-group">
+                <label for="comuneNascita" class="form-label">Comune di nascita</label>
+                <ng-select
+                        (blur)="onTouched()"
+                        [ngClass]="{
+                            'is-valid': form.touched && form.controls.comune.valid,
+                            'is-invalid': form.touched && form.controls.comune.invalid
+                        }"
+                        class="form-control"
+                        id="comuneNascita"
+                        formControlName="comune"
+                        [items]="comuni$ | async"
+                        [typeahead]="typeAheadComuni$"
+                        bindLabel="nome"
+                        bindValue="codice"></ng-select>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <label for="cap" class="form-label">CAP</label>
+            <input
+                    [ngClass]="{
+                        'is-valid': form.touched && form.controls.cap.valid,
+                        'is-invalid': form.touched && form.controls.cap.invalid
+                    }"
+                    formControlName="cap" type="text" class="form-control" id="cap">
+        </div>
+
+        <div class="col-12">
+            <label for="indirizzo" class="form-label">Indirizzo</label>
+            <input
+                    [ngClass]="{
+                        'is-valid': form.touched && form.controls.indirizzo.valid,
+                        'is-invalid': form.touched && form.controls.indirizzo.invalid
+                    }"
+                    (blur)="onTouched()" formControlName="indirizzo" type="text" class="form-control" id="indirizzo">
+        </div>
+    </div>
+</form>
