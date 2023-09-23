@@ -1,6 +1,6 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
-import {SharedService} from "../../shared/shared.service";
+import {SharedService} from "../../shared/services/shared.service";
 
 @Component({
     selector: 'app-observables',
@@ -45,12 +45,6 @@ export class ObservablesComponent implements OnInit {
 
         this.value$ = this.service.valueSubject$;
         this.valueBehaviorSubject$ = this.service.valueBehaviorSubject$;
-
-
-
-        this.service.valueSubject$.subscribe(console.log)
-
-
     }
 
 

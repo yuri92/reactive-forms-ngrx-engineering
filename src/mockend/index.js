@@ -7,6 +7,7 @@ const morgan = require('morgan');
 const fs = require('fs');
 const axios = require('axios');
 const {v4: uuid} = require('uuid');
+const faker = require('faker')
 
 app.use(cors())
 app.use(fileUpload())
@@ -67,5 +68,27 @@ app.get('/api/comuni', (req, res) => {
     }
 
 })
+
+app.get('/api/people', (req, res) => {
+    const people = [];
+
+    for (let i = 0; i < 100; i++) {
+        const firstName = faker.name.firstName();
+        const lastName = faker.name.lastName();
+        const dateOfBirth = faker.date.past().toDateString();
+        const image = 'https://placehold.co/400';
+
+        const person = {
+            firstName,
+            lastName,
+            dateOfBirth,
+            image,
+        };
+
+        people.push(person);
+    }
+
+    res.json(people);
+});
 
 app.listen(3001, () => console.log('Server partito sulla 3001'));

@@ -18,6 +18,9 @@ export class AppComponent {
     },{
       title: 'Observables',
       routerLink: 'observables'
+    },{
+      title: '[NgRx] People',
+      routerLink: 'people'
     },
   ]
 }

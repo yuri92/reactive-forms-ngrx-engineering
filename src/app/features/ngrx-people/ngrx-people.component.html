@@ -1,0 +1,13 @@
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="let person of people$ | async">
+            <div class="card">
+                <img [src]="person.image" class="card-img-top" alt="Person Image">
+                <div class="card-body">
+                    <h5 class="card-title">{{ person.firstName }} {{ person.lastName }}</h5>
+                    <p class="card-text">Date of Birth: {{ person.dateOfBirth }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
