@@ -1,6 +1,7 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {Observable, of, Subscription, tap, throwError} from 'rxjs';
 import {catchError, finalize} from 'rxjs/operators';
+import {SharedService} from "../../shared/shared.service";
 
 @Component({
     selector: 'app-observables',
@@ -10,10 +11,11 @@ import {catchError, finalize} from 'rxjs/operators';
 export class ObservablesComponent implements OnInit {
 
     value$: Observable<string>;
+    value2$: Observable<string>;
+    service = inject(SharedService)
 
     constructor() {
     }
-
 
     ngOnInit() {
         const customObservable: Observable<string> = new Observable((subscriber) => {
@@ -25,6 +27,9 @@ export class ObservablesComponent implements OnInit {
         });
 
         this.value$ = customObservable;
+        setTimeout(() => {
+            this.value2$ = customObservable;
+        }, 3000)
     }
 
 
