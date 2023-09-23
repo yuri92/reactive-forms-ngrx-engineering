@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, FormGroup, NonNullableFormBuilder, Validators}
 import {createPasswordStrengthValidator} from "../../shared/validators/password.validator";
 import {emailExistsValidator} from "../../shared/validators/email-exists.async-validator";
 import {HttpClient} from "@angular/common/http";
+import {IPerson} from "../../shared/models/interfaces/person.interface";
 
 @Component({
     selector: 'app-login',
@@ -20,8 +21,21 @@ export class LoginComponent {
         password: ['', [
             Validators.required,
             Validators.minLength(8),
-            createPasswordStrengthValidator()
+            // createPasswordStrengthValidator()
         ]]
     })
+
+    constructor(
+        private http: HttpClient
+    ) {
+    }
+
+    submit(): void {
+        if(this.form.invalid){
+            return;
+        }
+
+        this.http.post<IPerson>('/api/login', null).subscribe(console.log)
+    }
 
 }

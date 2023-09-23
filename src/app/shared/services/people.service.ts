@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {IPerson} from "../../features/ngrx-people/models/interfaces/person.interface";
+import {IPerson} from "../models/interfaces/person.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -15,4 +15,8 @@ export class PeopleService {
   public getPeople(): Observable<IPerson[]> {
     return this.http.get<IPerson[]>('/api/people');
   }
+
+  // public login(email: string, password: string): Observable<IPerson> {
+  //   return this.http.post<IPerson>('/api/login', null);
+  // }
 }

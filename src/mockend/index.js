@@ -69,6 +69,14 @@ app.get('/api/comuni', (req, res) => {
 
 })
 
+app.post('/api/login', (req, res) => {
+    const firstName = faker.name.firstName();
+    const lastName = faker.name.lastName();
+    const email = `${firstName.toLowerCase()}_${lastName.toLowerCase()}@email.com`
+
+    res.json({firstName, lastName, email})
+})
+
 app.get('/api/people', (req, res) => {
     const people = [];
 
