@@ -47,9 +47,51 @@
     </div>
 
     <div class="col-6">
-        <pre>{{form.controls.documento.errors | json}}</pre>
+<!--        <pre>{{form.controls.documento.errors | json}}</pre>-->
         <label class="form-label">Documento</label>
         <file-upload formControlName="documento"></file-upload>
+    </div>
+
+    <div class="col-12">
+        <hr>
+        <div class="row">
+            <div class="col-2">
+                <button (click)="addPassenger()" class="btn btn-primary">Aggiungi passeggero</button>
+            </div>
+            <div class="col-10">
+<!--                <div class="row" *ngFor="let control of passengersFormArray.controls; index as i">-->
+<!--                    <div class="col-4">-->
+<!--                        <label for="nome_{{i}}" class="form-label">Nome</label>-->
+<!--                        <input [formControl]="control.get('firstName')" type="text" class="form-control" id="nome_{{i}}">-->
+<!--                    </div>-->
+<!--                    <div class="col-4">-->
+<!--                        <label for="cognome_{{i}}" class="form-label">Cognome</label>-->
+<!--                        <input [formControl]="control.get('lastName')" type="text" class="form-control" id="cognome_{{i}}">-->
+<!--                    </div>-->
+<!--                    <div class="col-4">-->
+<!--                        <label for="age_{{i}}" class="form-label">Età</label>-->
+<!--                        <input [formControl]="control.get('age')" type="text" class="form-control" id="age_{{i}}">-->
+<!--                    </div>-->
+<!--                </div>-->
+                <ng-container formArrayName="passengers">
+                    <div class="row" *ngFor="let passenger of form.controls.passengers.controls; index as i">
+                        <div class="col-4" [formGroupName]="i">
+                            <label for="nome_{{i}}" class="form-label">Nome</label>
+                            <input formControlName="firstName" type="text" class="form-control" id="nome_{{i}}">
+                        </div>
+                        <div class="col-4">
+                            <label for="cognome_{{i}}" class="form-label">Cognome</label>
+                            <input formControlName="lastName" type="text" class="form-control" id="cognome_{{i}}">
+                        </div>
+                        <div class="col-4">
+                            <label for="age_{{i}}" class="form-label">Età</label>
+                            <input formControlName="age" type="text" class="form-control" id="age_{{i}}">
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+        <hr>
     </div>
 
     <div class="col-12">

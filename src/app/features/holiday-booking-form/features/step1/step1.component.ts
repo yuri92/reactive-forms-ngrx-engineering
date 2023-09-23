@@ -1,5 +1,5 @@
-import {Component, inject} from '@angular/core';
-import {FormBuilder, Validators} from "@angular/forms";
+import {Component, Inject, inject} from '@angular/core';
+import {FormArray, FormBuilder, Validators} from "@angular/forms";
 import {CFInitialsValidator} from "./step1.utils";
 import {HttpClient, HttpEventType} from "@angular/common/http";
 import {debounceTime, filter, Observable, Subject} from "rxjs";
@@ -12,8 +12,9 @@ import {IComune} from "./interfaces/comune.interface";
 })
 export class Step1Component {
 
+    private fb = inject(FormBuilder);
 
-    form = inject(FormBuilder).group({
+    form = this.fb.group({
         nome: ['', [Validators.required]],
         cognome: ['', Validators.required],
         codiceFiscale: [{
@@ -22,7 +23,8 @@ export class Step1Component {
         }, [Validators.required, Validators.pattern(/[A-MZ][1-9]\d{2}|[A-M]0(?:[1-9]\d|0[1-9])/)]],
         termsAndConditions: [false, [Validators.requiredTrue]],
         documento: ['', [Validators.required]],
-        indirizzoResidenza: [null]
+        indirizzoResidenza: [null],
+        passengers: this.fb.array([])
     }, {
         validators: CFInitialsValidator()
     })
@@ -50,6 +52,18 @@ export class Step1Component {
         //     this.form.patchValue(JSON.parse(sessionStorageForm));
         // }
 
+    }
+
+    get passengersFormArray(): FormArray {
+        return this.form.controls.passengers;
+    }
+
+    addPassenger(): void {
+        this.passengersFormArray.push(this.fb.group({
+            firstName: [''],
+            lastName: [''],
+            age: [''],
+        }))
     }
 
     submit(): void {
