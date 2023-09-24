@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {Store} from "@ngrx/store";
 import {CoreState} from "./core/store/core.reducer";
 import {map, Observable, tap} from "rxjs";
-import {IPerson} from "./shared/models/interfaces/person.interface";
+import {IUser} from "./shared/models/interfaces/person.interface";
 
 @Component({
   selector: 'app-root',
@@ -12,7 +12,7 @@ import {IPerson} from "./shared/models/interfaces/person.interface";
 export class AppComponent {
   title = 'angular-engineering-forms-ngrx';
 
-  user$: Observable<IPerson>;
+  user$: Observable<IUser>;
 
   nav = [
     {

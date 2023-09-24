@@ -1,9 +1,9 @@
 import {createReducer, on} from '@ngrx/store';
-import {IPerson} from "../../shared/models/interfaces/person.interface";
+import {IUser} from "../../shared/models/interfaces/person.interface";
 import {actionLogin} from "./core.actions";
 
 export interface CoreState {
-    user: IPerson;
+    user: IUser;
 }
 
 const initialCoreState: CoreState = {
@@ -14,13 +14,10 @@ export const coreReducer = createReducer(
     initialCoreState,
     on(
         actionLogin,
-        (state) => {
+        (state, {user}) => {
             return {
                 ...state,
-                user: {
-                    firstName: 'Pippo',
-                    lastName: 'pluto',
-                }
+                user
             }
         }
     )

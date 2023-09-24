@@ -3,7 +3,7 @@ import {FormBuilder, FormControl, FormGroup, NonNullableFormBuilder, Validators}
 import {createPasswordStrengthValidator} from "../../shared/validators/password.validator";
 import {emailExistsValidator} from "../../shared/validators/email-exists.async-validator";
 import {HttpClient} from "@angular/common/http";
-import {IPerson} from "../../shared/models/interfaces/person.interface";
+import {IUser} from "../../shared/models/interfaces/person.interface";
 import {Store} from "@ngrx/store";
 import {CoreState} from "../../core/store/core.reducer";
 import * as CoreActions from "../../core/store/core.actions";
@@ -38,8 +38,8 @@ export class LoginComponent {
             return;
         }
 
-        this.http.post<IPerson>('/api/login', null).subscribe(user => {
-            this.store.dispatch(CoreActions.actionLogin())
+        this.http.post<IUser>('/api/login', null).subscribe(user => {
+            this.store.dispatch(CoreActions.actionLogin({user}))
         })
     }
 
