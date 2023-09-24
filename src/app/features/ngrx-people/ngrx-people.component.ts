@@ -1,5 +1,11 @@
 import {Component} from '@angular/core';
 import {PeopleService} from "../../shared/services/people.service";
+import {PeopleState} from "./store/people.reducer";
+import {Store} from "@ngrx/store";
+import {Observable, tap} from "rxjs";
+import {IUser} from "../../shared/models/interfaces/person.interface";
+import {getPeople} from "./store/people.selectors";
+import {loadPeople} from "./store/people.actions";
 
 @Component({
     selector: 'app-ngrx-people',
@@ -8,11 +14,19 @@ import {PeopleService} from "../../shared/services/people.service";
 })
 export class NgrxPeopleComponent {
 
-    people$ = this.peopleService.getPeople()
+    people$: Observable<IUser[]>
 
     constructor(
-        private peopleService: PeopleService
+        private store: Store<PeopleState>
     ) {
+        this.people$ = this.store.select(getPeople).pipe(
+            tap(people => {
+                if(people.length === 0){
+                    this.store.dispatch(loadPeople());
+                }
+            })
+        )
+
     }
 
 

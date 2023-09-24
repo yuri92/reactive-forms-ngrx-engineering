@@ -19,7 +19,6 @@ const routes: Routes = [{
     {
         path: 'people',
         loadChildren: () => import('./features/ngrx-people/ngrx-people.module').then(m => m.NgrxPeopleModule),
-        canMatch: [isLoggedInGuard]
     }];
 
 @NgModule({
