@@ -16,7 +16,7 @@ export class PeopleService {
     return this.http.get<IUser[]>('/api/people');
   }
 
-  // public login(email: string, password: string): Observable<IPerson> {
-  //   return this.http.post<IPerson>('/api/login', null);
-  // }
+  public login(email: string, password: string): Observable<IUser> {
+    return this.http.post<IUser>('/api/login', null);
+  }
 }

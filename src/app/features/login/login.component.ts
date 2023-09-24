@@ -38,9 +38,8 @@ export class LoginComponent {
             return;
         }
 
-        this.http.post<IUser>('/api/login', null).subscribe(user => {
-            this.store.dispatch(CoreActions.actionLogin({user}))
-        })
+        const {email, password} = this.form.value;
+        this.store.dispatch(CoreActions.login({email, password}))
     }
 
 }

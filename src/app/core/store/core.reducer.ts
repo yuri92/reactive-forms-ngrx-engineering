@@ -1,6 +1,6 @@
 import {createReducer, on} from '@ngrx/store';
 import {IUser} from "../../shared/models/interfaces/person.interface";
-import {actionLogin} from "./core.actions";
+import * as CoreActions from "./core.actions";
 
 export const CORE_STATE_KEY = 'core';
 
@@ -15,13 +15,11 @@ const initialCoreState: CoreState = {
 export const coreReducer = createReducer(
     initialCoreState,
     on(
-        actionLogin,
-        (state, {user}) => {
-            return {
-                ...state,
-                user
-            }
-        }
+        CoreActions.loginSuccess,
+        (state, {user}) => ({
+            ...state,
+            user
+        })
     )
 )
 
