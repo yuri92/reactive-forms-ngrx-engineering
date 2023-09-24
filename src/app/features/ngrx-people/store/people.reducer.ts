@@ -1,5 +1,5 @@
 import {IUser} from "../../../shared/models/interfaces/person.interface";
-import {createReducer, on} from "@ngrx/store";
+import {createFeature, createReducer, on} from "@ngrx/store";
 import {loadPeopleSuccess} from "./people.actions";
 
 export const KEY_STORE_PEOPLE = "people";
@@ -12,13 +12,16 @@ const initialState: PeopleState = {
     people: []
 }
 
-export const peopleReducer = createReducer(
-    initialState,
-    on(
-        loadPeopleSuccess,
-        (state, {people}) => ({
-            ...state,
-            people
-        })
+export const peopleFeature = createFeature({
+    name: KEY_STORE_PEOPLE,
+    reducer : createReducer(
+        initialState,
+        on(
+            loadPeopleSuccess,
+            (state, {people}) => ({
+                ...state,
+                people
+            })
+        )
     )
-)
+})
