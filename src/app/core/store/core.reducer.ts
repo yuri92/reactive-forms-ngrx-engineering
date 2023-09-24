@@ -2,6 +2,8 @@ import {createReducer, on} from '@ngrx/store';
 import {IUser} from "../../shared/models/interfaces/person.interface";
 import {actionLogin} from "./core.actions";
 
+export const CORE_STATE_KEY = 'core';
+
 export interface CoreState {
     user: IUser;
 }

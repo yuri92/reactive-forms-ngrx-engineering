@@ -1,7 +1,9 @@
-import {createSelector} from "@ngrx/store";
-import {CoreState} from "./core.reducer";
+import {createFeatureSelector, createSelector} from "@ngrx/store";
+import {CORE_STATE_KEY, CoreState} from "./core.reducer";
+
+const state = createFeatureSelector<CoreState>(CORE_STATE_KEY);
 
 export const selectUser = createSelector(
-    state => state["core"],
+    state,
     core => core.user
 )
