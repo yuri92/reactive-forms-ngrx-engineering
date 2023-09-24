@@ -11,8 +11,19 @@ import {CoreEffects} from "./core.effects";
   declarations: [],
   imports: [
     CommonModule,
-    StoreModule.forRoot({[CORE_STATE_KEY]: coreReducer}),
+    StoreModule.forRoot({[CORE_STATE_KEY]: coreReducer}, {
+      runtimeChecks : {
+        strictActionSerializability: true,
+        strictActionTypeUniqueness: true,
+        strictActionImmutability: true,
+        strictActionWithinNgZone: true,
+        strictStateSerializability: true,
+        strictStateImmutability: true
+      }
+    }),
+
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+
     EffectsModule.forRoot([CoreEffects]),
   ],
   providers: [

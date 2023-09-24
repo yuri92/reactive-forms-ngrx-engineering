@@ -19,13 +19,7 @@ export class NgrxPeopleComponent {
     constructor(
         private store: Store<PeopleState>
     ) {
-        this.people$ = this.store.select(getPeople).pipe(
-            tap(people => {
-                if(people.length === 0){
-                    this.store.dispatch(loadPeople());
-                }
-            })
-        )
+        this.people$ = this.store.select(getPeople);
 
     }
 

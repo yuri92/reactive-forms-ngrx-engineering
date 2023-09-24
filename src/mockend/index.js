@@ -91,6 +91,7 @@ app.get('/api/people', (req, res) => {
             lastName,
             dateOfBirth,
             image,
+            id: uuid()
         };
 
         people.push(person);

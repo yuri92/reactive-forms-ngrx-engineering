@@ -1,9 +1,5 @@
-import {inject, NgModule} from '@angular/core';
+import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {Store} from "@ngrx/store";
-import {CoreState} from "./core/store/core.reducer";
-import {isLoggedIn} from "./core/store/core.selectors";
-import {isLoggedInGuard} from "./core/guards/is-logged-in.guard";
 
 const routes: Routes = [{
     path: 'login',
@@ -18,7 +14,7 @@ const routes: Routes = [{
     },
     {
         path: 'people',
-        loadChildren: () => import('./features/ngrx-people/ngrx-people.module').then(m => m.NgrxPeopleModule),
+        loadChildren: () => import('./features/ngrx-people/ngrx-people.module').then(m => m.NgrxPeopleModule)
     }];
 
 @NgModule({

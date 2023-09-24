@@ -7,3 +7,8 @@ export const getPeople = createSelector(
     state,
     state => state.people
 )
+
+export const arePeopleLoaded = createSelector(
+    getPeople,
+    people => people.length > 0
+)
