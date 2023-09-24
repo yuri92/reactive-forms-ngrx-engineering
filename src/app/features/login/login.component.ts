@@ -4,6 +4,9 @@ import {createPasswordStrengthValidator} from "../../shared/validators/password.
 import {emailExistsValidator} from "../../shared/validators/email-exists.async-validator";
 import {HttpClient} from "@angular/common/http";
 import {IPerson} from "../../shared/models/interfaces/person.interface";
+import {Store} from "@ngrx/store";
+import {CoreState} from "../../core/store/core.reducer";
+import * as CoreActions from "../../core/store/core.actions";
 
 @Component({
     selector: 'app-login',
@@ -13,12 +16,11 @@ import {IPerson} from "../../shared/models/interfaces/person.interface";
 export class LoginComponent {
 
     form = inject(FormBuilder).group({
-        email: ['', {
+        email: ['yuri@test.it', {
             validators: [Validators.required, Validators.email],
-            asyncValidators: [emailExistsValidator(inject(HttpClient))],
-            updateOn: 'blur'
+            asyncValidators: [emailExistsValidator(inject(HttpClient))]
         }],
-        password: ['', [
+        password: ['321654987654', [
             Validators.required,
             Validators.minLength(8),
             // createPasswordStrengthValidator()
@@ -26,7 +28,8 @@ export class LoginComponent {
     })
 
     constructor(
-        private http: HttpClient
+        private http: HttpClient,
+        private store: Store<CoreState>
     ) {
     }
 
@@ -35,7 +38,9 @@ export class LoginComponent {
             return;
         }
 
-        this.http.post<IPerson>('/api/login', null).subscribe(console.log)
+        this.http.post<IPerson>('/api/login', null).subscribe(user => {
+            this.store.dispatch(CoreActions.actionLogin())
+        })
     }
 
 }

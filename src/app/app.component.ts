@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import {Store} from "@ngrx/store";
+import {CoreState} from "./core/store/core.reducer";
+import {map, Observable, tap} from "rxjs";
+import {IPerson} from "./shared/models/interfaces/person.interface";
 
 @Component({
   selector: 'app-root',
@@ -7,6 +11,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular-engineering-forms-ngrx';
+
+  user$: Observable<IPerson>;
 
   nav = [
     {
@@ -23,4 +29,12 @@ export class AppComponent {
       routerLink: 'people'
     },
   ]
+
+  constructor(
+      private store: Store<CoreState>
+  ) {
+    this.user$ = this.store.pipe(
+        map((state: any) => state.core.user)
+    );
+  }
 }
