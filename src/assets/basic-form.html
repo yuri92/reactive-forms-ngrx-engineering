@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Basic form</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+</head>
+<body>
+
+<form>
+
+  <!-- CASELLE DI TESTO -->
+  Nome<br>
+  <input type="text" name="nome"><br>
+  Cognome<br>
+  <input type="text" name="cognome"><br>
+
+  <!-- SELECTBOX -->
+  Paese<br>
+  <select name="paese">
+    <option value="I">Italia</option>
+    <option value="E">Estero</option>
+  </select><br>
+
+  <!-- DATEPICKER-->
+  Data di nascita<br>
+  <input type="date" name="data-nascita"><br>
+
+  <!-- RADIO -->
+  Sesso<br>
+  <input type="radio" name="sesso" value="M"> M<br>
+  <input type="radio" name="sesso" value="F"> F<br>
+
+  <!-- CHECKBOX -->
+  Hobby<br>
+  <input type="checkbox" name="hobby" value="S"> Sport<br>
+  <input type="checkbox" name="hobby" value="L"> Lettura<br>
+  <input type="checkbox" name="hobby" value="C"> Cinema<br>
+  <input type="checkbox" name="hobby" value="I"> Internet<br>
+
+  <!-- TEXTAREA -->
+  Commento<br>
+  <textarea name="commento" rows="5" cols="30"></textarea>
+  <br><br>
+
+  <!-- SUBMIT -->
+  <button type="reset">Reset</button>
+  <button type="submit">Invia i dati</button>
+
+</form>
+
+<script>
+  $(document).ready(() => {
+
+    $('form').on('submit', event => {
+      event.preventDefault();
+
+      console.log($('form').serialize())
+    })
+
+  })
+</script>
+
+</body>
+</html>
