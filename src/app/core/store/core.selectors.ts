@@ -7,3 +7,8 @@ export const selectUser = createSelector(
     state,
     core => core.user
 )
+
+export const isLoggedIn = createSelector(
+    selectUser,
+    user => !!user
+)
