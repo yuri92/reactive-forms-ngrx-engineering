@@ -3,6 +3,7 @@ import {Store} from "@ngrx/store";
 import {CoreState} from "./core/store/core.reducer";
 import {map, Observable, tap} from "rxjs";
 import {IUser} from "./shared/models/interfaces/person.interface";
+import {selectUser} from "./core/store/core.selectors";
 
 @Component({
   selector: 'app-root',
@@ -33,8 +34,6 @@ export class AppComponent {
   constructor(
       private store: Store<CoreState>
   ) {
-    this.user$ = this.store.pipe(
-        map((state: any) => state.core.user)
-    );
+    this.user$ = this.store.select(selectUser);
   }
 }
