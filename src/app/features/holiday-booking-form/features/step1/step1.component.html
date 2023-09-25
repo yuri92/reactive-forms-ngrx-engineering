@@ -5,7 +5,7 @@
         (ngSubmit)="submit()"
         class="row g-3">
 
-    <pre>{{form.value | json}}</pre>
+    <pre>{{form.getRawValue() | json}}</pre>
 
     <div class="col-6">
         <label for="nome" class="form-label">Nome</label>
@@ -42,11 +42,13 @@
     <div class="col-12">
         <div class="input-group">
             <input
-                    (change)="onFileSelected($event)"
-                    formControlName="documento"
-                    type="file"
-                    [class.is-valid]="form.controls.documento.touched && uploadSuccess"
-                    class="form-control">
+                (change)="onFileSelected($event)"
+                type="file"
+                class="d-none"
+                #fileUpload>
+
+            <button (click)="fileUpload.click()" class="btn btn-primary">Upload file</button>
+            <input formControlName="documento" type="text" class="form-control" >
             <div class="valid-feedback">
                 File caricato correttamente!
             </div>

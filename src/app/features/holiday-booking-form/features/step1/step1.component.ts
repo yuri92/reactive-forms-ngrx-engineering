@@ -18,7 +18,8 @@ export class Step1Component {
         cognome: ['', Validators.required],
         codiceFiscale: [{value: '', disabled: true}, [Validators.required, Validators.pattern(/[A-MZ][1-9]\d{2}|[A-M]0(?:[1-9]\d|0[1-9])/)]],
         termsAndConditions: [false, [Validators.requiredTrue]],
-        documento: ['', [Validators.required]]
+        documento: [{value: '', disabled: true}, [Validators.required]],
+        idDocumento: ''
     }, {
         validators: CFInitialsValidator()
     })
@@ -60,8 +61,11 @@ export class Step1Component {
 
     onFileSelected(event): void {
         const file: File = event.target.files[0];
+        const fileId = String(new Date().getTime());
+
         const formData = new FormData();
         formData.append('thumbnail', file);
+        formData.append('fileId', fileId);
 
         this.http.post('/api/upload-thumbnail', formData, {
             reportProgress: true,
@@ -71,6 +75,11 @@ export class Step1Component {
                 this.uploadProgress = Math.round(100 * (event.loaded / event.total));
 
             } else if(event.type === HttpEventType.Response) {
+                this.form.controls.documento.setValue(file.name);
+                this.form.controls.idDocumento.setValue(fileId);
+
+                sessionStorage.setItem('holiday-form', JSON.stringify(this.form.getRawValue()))
+
                 this.uploadSuccess = true;
                 this.uploadProgress = 0;
             }
