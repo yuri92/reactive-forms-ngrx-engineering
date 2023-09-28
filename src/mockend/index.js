@@ -43,7 +43,7 @@ app.post('/api/email-checker', (req, res) => {
 app.post('/api/upload-thumbnail', (req, res) => {
     const simulaErrore = false;
 
-    if(simulaErrore){
+    if (simulaErrore) {
         res.status(500).json({})
         return;
     }
@@ -77,24 +77,25 @@ app.post('/api/login', (req, res) => {
     res.json({firstName, lastName, email})
 })
 
+let people = []
 app.get('/api/people', (req, res) => {
-    const people = [];
+    if (people.length === 0) {
+        for (let i = 0; i < 100; i++) {
+            const firstName = faker.name.firstName();
+            const lastName = faker.name.lastName();
+            const dateOfBirth = faker.date.past().toDateString();
+            const image = 'https://placehold.co/400';
 
-    for (let i = 0; i < 100; i++) {
-        const firstName = faker.name.firstName();
-        const lastName = faker.name.lastName();
-        const dateOfBirth = faker.date.past().toDateString();
-        const image = 'https://placehold.co/400';
+            const person = {
+                firstName,
+                lastName,
+                dateOfBirth,
+                image,
+                id: uuid()
+            };
 
-        const person = {
-            firstName,
-            lastName,
-            dateOfBirth,
-            image,
-            id: uuid()
-        };
-
-        people.push(person);
+            people.push(person);
+        }
     }
 
     res.json(people);
